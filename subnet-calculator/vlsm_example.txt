@@ -1,0 +1,10 @@
+# Sample VLSM plan for `python subnet_calc.py vlsm --file vlsm_example.txt`
+# First line: base network. Remaining lines: NAME=HOSTS. Synthetic data only.
+10.50.0.0/22
+HQ-Users=200
+Branch-Users=100
+Servers=50
+VoIP=40
+Printers=12
+Mgmt=6
+WAN-HQ-Branch=2
