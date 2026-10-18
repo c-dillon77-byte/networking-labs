@@ -194,7 +194,7 @@ vlsm_example.txt      # sample VLSM requirements
   computes network/broadcast addresses, host ranges, binary and wildcard masks, and smallest-fit
   subnets, and allocates non-overlapping variable-length subnets, with JSON output for automation.
 - Wrote a 98-test pytest suite (edge cases such as /31 and /32, CLI, and JSON output) with ruff
-  linting, tested on Python 3.10–3.12.
+  linting and formatting checks, run automatically by GitHub Actions CI on Python 3.10–3.12.
 
 ## License
 
