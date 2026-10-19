@@ -1,0 +1,11 @@
+{
+  "description": "Simulated ICMP ping-sweep of a lab /29. Synthetic RFC 1918 addresses only.",
+  "hosts": [
+    {"host": "192.168.10.1", "alive": true, "method": "simulated", "latency_ms": 0.8, "detail": "gateway"},
+    {"host": "192.168.10.2", "alive": true, "method": "simulated", "latency_ms": 1.2, "detail": "lab-pc"},
+    {"host": "192.168.10.3", "alive": false, "method": "simulated", "latency_ms": null, "detail": ""},
+    {"host": "192.168.10.4", "alive": true, "method": "simulated", "latency_ms": 2.4, "detail": "printer"},
+    {"host": "192.168.10.5", "alive": false, "method": "simulated", "latency_ms": null, "detail": ""},
+    {"host": "192.168.10.6", "alive": true, "method": "simulated", "latency_ms": 1.1, "detail": "nas"}
+  ]
+}
