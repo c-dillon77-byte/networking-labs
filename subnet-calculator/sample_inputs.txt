@@ -1,0 +1,9 @@
+# Sample CIDRs for `python subnet_calc.py batch sample_inputs.txt`
+# Synthetic only: RFC 1918 private ranges and RFC 5737 documentation ranges.
+10.0.0.0/8
+172.16.5.130/27
+192.168.1.0/24
+192.168.100.14 255.255.255.252
+192.0.2.0/24
+198.51.100.64/26
+203.0.113.9/31

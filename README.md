@@ -12,12 +12,12 @@ Each tool lives in its own folder with its own README, `requirements.txt` and `t
 
 | Project | What it demonstrates | Status |
 |---|---|---|
-| `subnet-calculator/` | IPv4 subnetting (network/broadcast, usable host range, CIDR ↔ mask, VLSM splits) using Python's `ipaddress` module, with unit tests | 🟡 Planned |
-| [`ping-port-sweep/`](ping-port-sweep/) | Checking host reachability and open TCP ports across a lab subnet; timeouts, concurrency, CSV output | 🔵 In review |
+| [`subnet-calculator/`](subnet-calculator/) | IPv4 subnetting (network/broadcast, usable host range, CIDR ↔ mask, VLSM splits) using Python's `ipaddress` module, with unit tests | ✅ Complete |
+| [`ping-port-sweep/`](ping-port-sweep/) | Checking host reachability and open TCP ports across a lab subnet; timeouts, concurrency, CSV output | ✅ Complete |
 | `cisco-config-backup/` | Automated SSH config backups from Cisco devices with **netmiko**: inventory file, credentials from environment variables (never hard-coded), timestamped backup files | 🟡 Planned |
 | `show-command-parser/` | Parsing `show ip interface brief` / `show vlan` style output into structured data (CSV/JSON), tested against saved sample output | 🟡 Planned |
 
-*Status key: 🟡 Planned · 🟢 In progress · ✅ Complete*
+*Status key: 🟡 Planned · 🟢 In progress · 🔵 In review · ✅ Complete*
 
 ## How to run
 
@@ -38,7 +38,7 @@ Run the checks the same way CI does:
 
 ```bash
 pip install ruff pytest
-ruff check .
+ruff check . && ruff format --check .
 cd <project-folder> && python -m pytest -q
 ```
 
