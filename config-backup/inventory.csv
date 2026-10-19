@@ -1,0 +1,4 @@
+name,host,device_type,port
+R1-CORE,192.168.10.1,cisco_ios,22
+SW1-ACCESS,192.168.10.2,cisco_ios,22
+R2-BRANCH,10.50.0.1,cisco_ios,22

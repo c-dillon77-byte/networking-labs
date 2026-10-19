@@ -1,0 +1,7 @@
+Cisco IOS Software, C2960 Software (C2960-LANBASEK9-M), Version 15.2(2)E
+SW1-ACCESS uptime is 7 days, 1 hour, 5 minutes
+System image file is "flash:/c2960-lanbasek9-mz.152-2.E.bin"
+cisco WS-C2960-24TT-L (PowerPC405) processor with 65536K bytes of memory.
+Processor board ID FOC9999X0ZZ
+24 FastEthernet interfaces
+2 Gigabit Ethernet interfaces
