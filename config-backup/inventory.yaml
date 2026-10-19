@@ -1,0 +1,31 @@
+# Synthetic lab inventory — RFC 1918 addresses only.
+# Credentials are NOT stored here. Set NETMIKO_USERNAME / NETMIKO_PASSWORD
+# (and optional NETMIKO_SECRET), or let the tool prompt you.
+#
+# Optional per-device overrides:
+#   username_env: LAB_R1_USER
+#   password_env: LAB_R1_PASS
+#   secret_env:   LAB_R1_SECRET
+
+- name: R1-CORE
+  host: 192.168.10.1
+  device_type: cisco_ios
+  port: 22
+
+- name: SW1-ACCESS
+  host: 192.168.10.2
+  device_type: cisco_ios
+  port: 22
+
+- name: R2-BRANCH
+  host: 10.50.0.1
+  device_type: cisco_ios
+  port: 22
+
+# Example NX-OS / ASA entries (still synthetic hosts):
+# - name: SPINE-1
+#   host: 10.255.1.1
+#   device_type: cisco_nxos
+# - name: FW-EDGE
+#   host: 172.16.99.1
+#   device_type: cisco_asa
