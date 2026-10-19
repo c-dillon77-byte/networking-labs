@@ -1,0 +1,7 @@
+# Runtime: none required. show_parser.py uses only the Python standard library (3.10+).
+# Optional TextFSM engine:
+# ntc-templates>=1.5
+
+# Development / testing:
+pytest>=7
+ruff>=0.4

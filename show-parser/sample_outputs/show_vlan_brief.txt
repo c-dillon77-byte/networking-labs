@@ -1,0 +1,12 @@
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Fa0/3, Fa0/4, Fa0/5, Fa0/6, Fa0/7
+                                                Fa0/8, Fa0/9, Fa0/10, Fa0/11
+10   USERS                            active    Fa0/1, Fa0/2, Gi0/1
+20   SERVERS                          active    Fa0/12, Fa0/13
+30   GUEST                            active
+99   MGMT                             active    Gi0/2
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
