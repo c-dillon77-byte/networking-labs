@@ -5,44 +5,54 @@ on:
   pull_request:
 
 jobs:
-  lint-and-test:
+  lint:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10", "3.12"]
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ruff
+        run: pip install ruff
+      # ruff uses the nearest pyproject.toml, so each project's own lint settings apply.
+      - name: Lint (ruff check)
+        run: ruff check .
+      - name: Format check (ruff format)
+        run: ruff format --check .
 
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-
-      - name: Install lint/test tools
-        run: pip install ruff pytest
-
-      - name: Install each project's requirements
-        run: |
-          shopt -s nullglob globstar
-          for req in **/requirements.txt; do
-            echo "Installing $req"
-            pip install -r "$req"
-          done
-
-      - name: Lint (ruff)
-        run: ruff check .
-
+      - name: Install pytest
+        run: pip install pytest
       - name: Test (pytest) in every project subfolder
+        shell: bash
         run: |
+          set -euo pipefail
           shopt -s nullglob
+          status=0
           found=0
           for dir in */; do
-            if [ -d "${dir}tests" ]; then
-              found=1
-              echo "::group::pytest ${dir}"
-              (cd "$dir" && PYTHONPATH=. python -m pytest -q)
-              echo "::endgroup::"
+            [ -d "${dir}tests" ] || continue
+            found=$((found + 1))
+            echo "::group::pytest ${dir}"
+            if [ -f "${dir}requirements.txt" ]; then
+              pip install -r "${dir}requirements.txt"
             fi
+            (cd "$dir" && PYTHONPATH=. python -m pytest -q) || status=1
+            echo "::endgroup::"
           done
           if [ "$found" -eq 0 ]; then
             echo "No project tests yet, nothing to run."
+          else
+            echo "Tested ${found} project(s)."
           fi
+          exit $status
