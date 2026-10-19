@@ -1,0 +1,10 @@
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+R1-CORE.lab.local
+                 Gig 0/1           148              R S I  CISCO2911 Gig 0/0
+SW2-ACCESS
+                 Fas 0/24          162                S I  WS-C2960  Fas 0/24
+AP-LOBBY
+                 Gig 0/2           120              T H    AIR-CAP   Gig 0

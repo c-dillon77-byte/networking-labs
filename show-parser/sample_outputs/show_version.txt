@@ -1,0 +1,28 @@
+Cisco IOS Software, C2900 Software (C2900-UNIVERSALK9-M), Version 15.7(3)M8, RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2020 by Cisco Systems, Inc.
+Compiled Tue 30-Jun-20 00:00 by prod_rel_team
+
+ROM: System Bootstrap, Version 15.0(1r)M16, RELEASE SOFTWARE (fc1)
+
+R1-CORE uptime is 3 days, 4 hours, 12 minutes
+System returned to ROM by power-on
+System image file is "flash0:c2900-universalk9-mz.SPA.157-3.M8.bin"
+Last reload type: Normal Reload
+Last reload reason: power-on
+
+Cisco CISCO2911/K9 (revision 1.0) with 491520K/32768K bytes of memory.
+Processor board ID FTX9999Z0AB
+3 Gigabit Ethernet interfaces
+DRAM configuration is 64 bits wide with parity enabled.
+255K bytes of non-volatile configuration memory.
+250880K bytes of ATA System CompactFlash 0 (Read/Write)
+
+License Info:
+License UDI:
+-------------------------------------------------
+Device#   PID                   SN
+-------------------------------------------------
+*0        CISCO2911/K9          FTX9999Z0AB
+
+Configuration register is 0x2102
