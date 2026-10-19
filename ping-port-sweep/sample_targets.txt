@@ -1,0 +1,6 @@
+# Synthetic targets for discover/scan demos (RFC 1918 + loopback).
+# Hostnames are not used. Only scan networks you own.
+127.0.0.1
+192.168.10.0/29
+192.168.10.100-192.168.10.103
+10.50.0.10-15

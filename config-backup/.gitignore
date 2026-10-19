@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+# Config backups contain enable secrets, local usernames, and ACLs — never commit them.
+backups/
+*.cfg.bak
+report.json
