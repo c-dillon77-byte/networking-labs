@@ -146,6 +146,10 @@ Same check in Python:
 (16384, 16382)
 ```
 
+## Study reference
+
+- [IPv4 Subnetting Cheat Sheet](https://www.ipcisco.com) by Gokhan Kosem (ipcisco.com), the quick reference I studied alongside building this workbook.
+
 ## Planned improvements
 
 - Show true binary in the **Binary View** block (`DEC2BIN(octet, 8)` instead of zero-padded decimal)
