@@ -146,7 +146,7 @@ can see the network bits line up with the mask's 1s.
 
 The sheet rebuilds the address from the four parsed octets and compares it with what was typed (M6). If they don't
 match (a missing octet, extra text) or any octet is outside 0–255, the note next to B5 turns into a red warning
-instead of the sheet quietly treating bad input as 0. B6 has data validation that only accepts whole numbers 0–32.
+instead of the sheet quietly treating bad input as 0. The IP and network binary rows show "—" until the address is fixed. B6 has data validation that only accepts whole numbers 0–32.
 
 ## Worked example: 10.10.1.13/18
 
