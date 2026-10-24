@@ -18,7 +18,7 @@ visible helper cells, so you can follow exactly how each number is calculated.
 
 | Sheet | Contents |
 |---|---|
-| **Subnet Calculator** | The calculator: inputs, results, a binary view block and a quick CIDR reference table (/8 through /32) |
+| **Subnet Calculator** | The calculator: inputs (IP plus a CIDR prefix *or* a dotted subnet mask), results, a binary view of the IP, mask and network, and a quick CIDR reference table (/8 through /32) |
 | **Python Script** | A companion script using Python's `ipaddress` module that prints the same results from the command line, handy for checking the spreadsheet's answers |
 | **Instructions** | How to use both, plus example inputs to try |
 
@@ -29,7 +29,10 @@ Results on the calculator sheet:
 - Usable hosts and total addresses
 - Subnet mask and wildcard mask (the inverse mask used in Cisco ACLs and OSPF)
 - CIDR notation, host bits and network bits
+- Binary view of the IP address, subnet mask and network address (8 bits per octet)
 - `/31` (point-to-point links, RFC 3021) and `/32` (single host route) are handled as special cases
+- Input checks: a red warning appears next to the IP if it isn't four octets of 0–255, next to the mask if it isn't a
+  valid subnet mask, and the CIDR cell only accepts whole numbers 0–32
 
 ## How to use it
 
@@ -41,6 +44,8 @@ Results on the calculator sheet:
    - **Google Sheets**: in Google Drive choose **New → File upload**, then open the file with Google Sheets
 3. On the **Subnet Calculator** sheet, type an IPv4 address in **B5** (for example `192.168.1.10`).
 4. Type the CIDR prefix length (0–32) in **B6** (for example `24`).
+   *Or* type a dotted subnet mask in **B7** (for example `255.255.240.0`). A valid mask in B7 overrides B6, and the
+   note next to it confirms the prefix in use. Leave B7 blank to use B6.
 5. Everything in the green **Results** cells updates automatically. Only edit the yellow input cells; the helper
    columns H–M hold the intermediate math.
 
@@ -87,6 +92,24 @@ K6 = IF(prefix>=32, 255, IF(prefix<=24, 0, 256 - 2^(32-prefix)))
 
 The wildcard mask (H8:K8) is each mask octet subtracted from 255.
 
+### 3b. Or derive the prefix from a dotted mask (B7)
+
+If a subnet mask is typed in B7, it's split into octets the same way as the IP (H9:K9). A valid mask octet can only
+be one of nine values, so a lookup counts its 1-bits (H10:K10):
+
+```text
+bits = 9 - MATCH(octet, {255,254,252,248,240,224,192,128,0}, 0)     → 255 = 8 bits … 128 = 1 bit, 0 = 0 bits
+```
+
+The mask is valid (M7) when all four octets are in that list, it has exactly four octets, and the 1-bits are
+contiguous (an octet can only be non-zero if the octet before it is 255). The prefix actually used is then:
+
+```text
+M5 = IF(mask is valid, SUM(H10:K10), B6)
+```
+
+For example, `255.255.240.0` gives 8 + 8 + 4 + 0 = **/20**.
+
 ### 4. Find the network address (L7)
 
 A subnet with *h* host bits is a block of 2ʰ addresses, and every block starts on a multiple of its size. Dividing
@@ -107,7 +130,7 @@ L9 (broadcast) = network + block size - 1
 - **Special cases:** a `/31` has 2 usable addresses and no broadcast (RFC 3021 point-to-point links), and a `/32`
   is a single host
 
-### 6. Turn integers back into dotted decimal (B10:B13)
+### 6. Turn integers back into dotted decimal (B10:B13) and binary (B23:B25)
 
 To display a 32-bit integer as an address, the sheet peels off one octet at a time with `INT` (whole division)
 and `MOD` (remainder):
@@ -115,6 +138,15 @@ and `MOD` (remainder):
 ```text
 INT(n/16777216) & "." & INT(MOD(n,16777216)/65536) & "." & INT(MOD(n,65536)/256) & "." & MOD(n,256)
 ```
+
+The binary view runs each octet through `DEC2BIN(octet, 8)`, which gives exactly 8 bits with leading zeros, so you
+can see the network bits line up with the mask's 1s.
+
+### 7. Input checks
+
+The sheet rebuilds the address from the four parsed octets and compares it with what was typed (M6). If they don't
+match (a missing octet, extra text) or any octet is outside 0–255, the note next to B5 turns into a red warning
+instead of the sheet quietly treating bad input as 0. B6 has data validation that only accepts whole numbers 0–32.
 
 ## Worked example: 10.10.1.13/18
 
@@ -134,6 +166,9 @@ This is the default input in the workbook. Values checked against Python's `ipad
 | Last usable host | broadcast − 1 | **10.10.63.254** |
 | Total addresses | 2¹⁴ | **16,384** |
 | Usable hosts | 16,384 − 2 | **16,382** |
+| IP in binary | DEC2BIN of each octet | 00001010.00001010.00000001.00001101 |
+| Mask in binary | 18 ones, then 14 zeros | 11111111.11111111.11000000.00000000 |
+| Network in binary | IP bits kept where the mask is 1 | 00001010.00001010.00000000.00000000 |
 
 Same check in Python:
 
@@ -149,9 +184,3 @@ Same check in Python:
 ## Study reference
 
 - [IPv4 Subnetting Cheat Sheet](https://www.ipcisco.com) by Gokhan Kosem (ipcisco.com), the quick reference I studied alongside building this workbook.
-
-## Planned improvements
-
-- Show true binary in the **Binary View** block (`DEC2BIN(octet, 8)` instead of zero-padded decimal)
-- Use the optional **Subnet Mask** input (B7) when it's filled in; today the prefix in B6 always drives the math
-- Flag invalid input (octets over 255, a prefix outside 0–32) instead of calculating silently
