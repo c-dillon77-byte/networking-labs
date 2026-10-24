@@ -6,7 +6,8 @@ Small, practical **Python tools for everyday network administration**, the kind 
 junior network technician does: subnetting, checking which hosts and services are up, backing up switch and
 router configs, and turning CLI output into usable data.
 
-Each tool lives in its own folder with its own README, `requirements.txt` and `tests/`.
+Each tool lives in its own folder with its own README, `requirements.txt` and `tests/`
+(the Excel calculator has just its workbook and README).
 
 ## Project index
 
@@ -16,6 +17,7 @@ Each tool lives in its own folder with its own README, `requirements.txt` and `t
 | [`ping-port-sweep/`](ping-port-sweep/) | Checking host reachability and open TCP ports across a lab subnet; timeouts, concurrency, CSV output | ✅ Complete |
 | [`config-backup/`](config-backup/) | Automated SSH config backups from Cisco devices with **netmiko**: inventory file, credentials from environment variables (never hard-coded), timestamped backup files, change diffs | ✅ Complete |
 | [`show-parser/`](show-parser/) | Parsing `show ip interface brief` / `show vlan` style output into structured data (CSV/JSON), tested against saved sample output | ✅ Complete |
+| [`excel-subnet-calculator/`](excel-subnet-calculator/) | A formula-only Excel subnet calculator I designed myself: parses the IP into octets, converts it to a 32-bit integer and derives network/broadcast, host range, mask and wildcard (handles /31 and /32 per RFC 3021). A spreadsheet, so no Python tests | ✅ Complete |
 
 *Status key: 🟡 Planned · 🟢 In progress · 🔵 In review · ✅ Complete*
 
